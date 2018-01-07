@@ -4,8 +4,9 @@ import {
     graphql
 } from 'react-apollo'
 
-import AddTodo from './AddToDo'
-
+import AddTodo from './AddTodo'
+import DeleteTodo from './DeleteTodo'
+import ToggleTodo from './ToggleTodo'
 
 const TodoList = ({ data: {loading, error, listTodo }}) => {
 
@@ -24,7 +25,14 @@ const TodoList = ({ data: {loading, error, listTodo }}) => {
     <div className="todosList">
       <AddTodo />
         { listTodo.map( todo => 
-            (<div key={todo.todoId} className={(todo.done) ? 'done':'todo'}>{ todo.text }</div>)
+            (
+                <div key={todo.todoId} className={(todo.done) ? 'done':'todo'}>
+                <label>
+                    <ToggleTodo id={todo.todoId} done={todo.done} />
+                    { todo.text }
+                </label>
+                <DeleteTodo id={todo.todoId} /></div>
+            )
         )}
     </div>
   )
