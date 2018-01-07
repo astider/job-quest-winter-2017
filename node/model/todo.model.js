@@ -7,7 +7,9 @@ const Schema = mongoose.Schema
 const todoSchema = new Schema({
     todoId: Number,
     text: String,
-    done: Boolean
+    done: Boolean,
+    createdAt: Date,
+    updatedAt: Date
 })
 
 

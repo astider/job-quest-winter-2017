@@ -37,7 +37,9 @@ const setupExpress = () => {
 
         todoList.create({
             text: inputText,
-            done: false
+            done: false,
+            createdAt: new Date(),
+            updatedAt: new Date()
         })
         .then(() => {
             res.json({
@@ -61,10 +63,18 @@ const setupExpress = () => {
         todoList.findOneAndRemove({ todoId: targetId })
         .then(deletedTodo => {
     
-            res.json({
-                error: null,
-                deletedTodo: deletedTodo
-            })
+            if (deletedTodo) {
+                res.json({
+                    error: null,
+                    deletedTodo: deletedTodo
+                })
+            }
+            else {
+                res.json({
+                    error: null,
+                    message: 'Cannot find Todo id ' + targetId
+                })
+            }            
 
         })
         .catch(error => {
@@ -76,6 +86,7 @@ const setupExpress = () => {
 
     })
 
+    // Toggle todo status
     app.post('/:id/toggle', (req, res) => {
         
         let targetId = req.params.id
@@ -84,7 +95,10 @@ const setupExpress = () => {
         .then(target => {
     
             let done = target.done
-            return todoList.update({ todoId: targetId }, { done: !done })
+            return todoList.update(
+                { todoId: targetId },
+                { done: !done, updatedAt: new Date() }
+            )
             
         })
         .then(updatedTodo => {
