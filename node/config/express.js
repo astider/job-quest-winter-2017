@@ -62,13 +62,10 @@ const setupExpress = () => {
         .then(deletedTodo => {
     
             if (deletedTodo) {
-                res.json({
-                    error: null,
-                    deletedTodo: deletedTodo
-                })
+                res.json(deletedTodo)
             }
             else {
-                res.json({
+                res.status(404).json({
                     error: null,
                     message: 'Cannot find Todo id ' + targetId
                 })
@@ -88,22 +85,19 @@ const setupExpress = () => {
     app.post('/:id/toggle', (req, res) => {
         
         let targetId = req.params.id
+        let todo = null
 
         todoList.findOne({ todoId: targetId })
         .then(target => {
     
-            let done = target.done
-            return todoList.update(
-                { todoId: targetId },
-                { done: !done, updatedAt: new Date() }
-            )
+            todo = target
+            todo.done = !todo.done
+            todo.updatedAt = new Date()
+            return todo.save()
             
         })
-        .then(updatedTodo => {
-            res.json({
-                error: null,
-                updatedTodo: updatedTodo
-            })
+        .then(() => {
+            res.json(todo)
         })
         .catch(error => {
             res.status(500).json({

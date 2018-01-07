@@ -13,6 +13,7 @@ type Query {
 
 type Mutation {
   createTodo(text: String!): Todo
+  deleteTodo(todoId: ID!): Todo
   toggleTodo(todoId: ID!): Todo
 }
 
