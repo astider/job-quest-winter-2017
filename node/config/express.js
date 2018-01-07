@@ -3,32 +3,15 @@ import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import todoList from '../model/todo.model'
 
-// import graphqlHTTP from 'express-graphql'
-// import { buildSchema } from 'graphql'
-
-// const schema = buildSchema(`
-//     type Query {
-//         hello: String
-//     }
-// `)
-
-// const root = { hello: () => 'Hello world!' }
-
 
 const setupExpress = () => {
 
     const app = express()
 
-    app.use(express.static(__dirname + '/public'))
     app.use(bodyParser.urlencoded({'extended':'true'}))
     app.use(bodyParser.json())
+    app.use(bodyParser.text({ type: 'application/graphql' }))
 
-    // app.use('/graphql', graphqlHTTP({
-    //     schema: schema,
-    //     rootValue: root,
-    //     graphiql: true,
-    // }))
-    
     // Get Todo List
     app.get('/', (req, res) => {
         
