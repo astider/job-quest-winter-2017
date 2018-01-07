@@ -1,10 +1,11 @@
-const fs = require('fs')
-const express = require('express')
-const { makeExecutableSchema } = require('graphql-tools')
-const bodyParser = require('body-parser')
-const { graphqlExpress, graphiqlExpress } = require('apollo-server-express')
+import fs from 'fs'
+import express from 'express'
+import { makeExecutableSchema } from 'graphql-tools'
+import bodyParser from 'body-parser'
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 
-const resolvers = require('./resolvers')
+import cors from 'cors'
+import resolvers from './resolvers'
 const typeDefs = fs.readFileSync('./schema.gql', 'utf8')
 
 const schema = makeExecutableSchema({
@@ -13,6 +14,7 @@ const schema = makeExecutableSchema({
 })
 
 const app = express()
+app.use('*', cors({ origin: 'http://localhost:3000' }));
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }))
 app.use('/graphiql', graphiqlExpress({ 
   endpointURL: '/graphql',
