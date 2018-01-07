@@ -23,8 +23,8 @@ const TodoList = ({ data: {loading, error, listTodo }}) => {
       
     <div className="todosList">
       <AddTodo />
-        { listTodo.map( todo =>
-            (<div key={todo.todoId} className="todo">{ todo.text }</div>)
+        { listTodo.map( todo => 
+            (<div key={todo.todoId} className={(todo.done) ? 'done':'todo'}>{ todo.text }</div>)
         )}
     </div>
   )

@@ -23,7 +23,7 @@ const AddTodo = ({ mutate }) => {
   return (
     <input
       type="text"
-      placeholder="New channel"
+      placeholder="Enter new Todo"
       onKeyUp={handleKeyUp}
     />
   )
