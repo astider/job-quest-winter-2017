@@ -5,16 +5,15 @@
   "author": "Nontapat Piyamongkol",
   "main": "server.js",
   "dependencies": {
-    "axios": "^0.17.1",
+    "apollo-server-express": "^1.2.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2016": "^6.24.1",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
-    "express-graphql": "^0.6.11",
-    "graphql": "^0.12.3",
-    "mongoose": "^5.0.0-rc2",
-    "mongoose-auto-increment": "^5.0.1"
+    "graphql": "^0.11.7",
+    "graphql-tools": "^2.6.1",
+    "isomorphic-fetch": "^2.2.1"
   },
   "scripts": {
     "start": "babel-node server.js --presets es2016"

@@ -1,0 +1,23 @@
+type Todo {
+  todoId: ID
+  text: String!
+  done: Boolean
+  createdAt: String
+  updatedAt: String
+}
+
+type Query {
+  # show Todo list
+  listTodo: [Todo]
+}
+
+type Mutation {
+  createTodo(text: String!): Todo
+  deleteTodo(todoId: ID!): Todo
+  toggleTodo(todoId: ID!): Todo
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

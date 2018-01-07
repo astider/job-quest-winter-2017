@@ -3,23 +3,21 @@ import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import todoList from '../model/todo.model'
 
+
 const setupExpress = () => {
 
     const app = express()
 
-    app.use(express.static(__dirname + '/public'))
     app.use(bodyParser.urlencoded({'extended':'true'}))
-    app.use(bodyParser.json());                                  
-    
+    app.use(bodyParser.json())
+    app.use(bodyParser.text({ type: 'application/graphql' }))
+
     // Get Todo List
     app.get('/', (req, res) => {
         
         todoList.find()
         .then(todoLists => {
-            res.json({
-                error: null,
-                todoLists: todoLists
-            })
+            res.json(todoLists)
         })
         .catch(error => {
             res.status(500).json({
@@ -35,16 +33,16 @@ const setupExpress = () => {
 
         let inputText = req.body.inputText
 
-        todoList.create({
+        let newTodo = {
             text: inputText,
             done: false,
             createdAt: new Date(),
             updatedAt: new Date()
-        })
+        }
+
+        todoList.create(newTodo)
         .then(() => {
-            res.json({
-                error: null
-            })
+            res.json(newTodo)
         })
         .catch(error => {
             res.status(500).json({
@@ -64,13 +62,10 @@ const setupExpress = () => {
         .then(deletedTodo => {
     
             if (deletedTodo) {
-                res.json({
-                    error: null,
-                    deletedTodo: deletedTodo
-                })
+                res.json(deletedTodo)
             }
             else {
-                res.json({
+                res.status(404).json({
                     error: null,
                     message: 'Cannot find Todo id ' + targetId
                 })
@@ -90,22 +85,19 @@ const setupExpress = () => {
     app.post('/:id/toggle', (req, res) => {
         
         let targetId = req.params.id
+        let todo = null
 
         todoList.findOne({ todoId: targetId })
         .then(target => {
     
-            let done = target.done
-            return todoList.update(
-                { todoId: targetId },
-                { done: !done, updatedAt: new Date() }
-            )
+            todo = target
+            todo.done = !todo.done
+            todo.updatedAt = new Date()
+            return todo.save()
             
         })
-        .then(updatedTodo => {
-            res.json({
-                error: null,
-                updatedTodo: updatedTodo
-            })
+        .then(() => {
+            res.json(todo)
         })
         .catch(error => {
             res.status(500).json({
