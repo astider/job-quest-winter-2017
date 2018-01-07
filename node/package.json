@@ -10,6 +10,7 @@
     "babel-preset-es2016": "^6.24.1",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "express-graphql": "^0.6.11",
     "graphql": "^0.12.3",
     "mongoose": "^5.0.0-rc2",
     "mongoose-auto-increment": "^5.0.1"
