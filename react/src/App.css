@@ -34,13 +34,16 @@ html, body {
   to { transform: rotate(360deg); }
 }
 
-div.todoList {
-  padding: 0 30px;
-  position: relative;
+div.todosList {
+  
+  width: 50%;
+  margin: 0 auto;
 }
 
 div.todosList input {
-  width: 200px;
+  
+  width: 50%;
+  margin: 0 auto;
   background-color: transparent;
   padding: 10px 20px 10px 30px;
   outline: none;
@@ -58,7 +61,6 @@ div.todo  {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.8);
   font-weight: 300;
-  width: 200px;
   text-align: left;
   padding-left: 30px;
   font-size: 16px;

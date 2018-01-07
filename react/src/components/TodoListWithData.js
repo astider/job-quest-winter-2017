@@ -7,8 +7,8 @@ import {
 import AddTodo from './AddToDo'
 
 
-const TodoList = ({ data: {loading, error, todos }}) => {
-    
+const TodoList = ({ data: {loading, error, listTodo }}) => {
+
   if (loading) {
     return <p>Loading Todo List ...</p>
   }
@@ -16,22 +16,14 @@ const TodoList = ({ data: {loading, error, todos }}) => {
     return <p>{error.message}</p>
   }
 
-  todos = [
-      {
-          todoId: 1,
-          text: 'a'
-      },
-      {
-          todoId: 2,
-          text: 'b'
-      }
-  ]
+  while (loading) {}
+  console.log(loading)
 
   return (
       
     <div className="todosList">
       <AddTodo />
-        { todos.map( todo =>
+        { listTodo.map( todo =>
             (<div key={todo.todoId} className="todo">{ todo.text }</div>)
         )}
     </div>
