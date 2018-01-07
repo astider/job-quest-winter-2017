@@ -1,11 +1,24 @@
-import mongoose from './config/mongoose'
-import express from './config/express'
+const fs = require('fs')
+const express = require('express')
+const { makeExecutableSchema } = require('graphql-tools')
+const bodyParser = require('body-parser')
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express')
 
-const db = mongoose.connectMongoDB()
-const app = express.setupExpress()
+const resolvers = require('./resolvers')
+const typeDefs = fs.readFileSync('./schema.gql', 'utf8')
 
-app.listen(8000, () => {
- console.log("Express server listening on port 8000");
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers
 })
 
-// app.listen(4000, () => console.log('Now browse to localhost:4000/graphql'));
+const app = express()
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }))
+app.use('/graphiql', graphiqlExpress({ 
+  endpointURL: '/graphql',
+}))
+
+const PORT = 5000
+app.listen(PORT, () => {
+  console.log(`graphql listen http://localhost:${PORT}`)
+})

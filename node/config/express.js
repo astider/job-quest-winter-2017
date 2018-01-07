@@ -17,10 +17,7 @@ const setupExpress = () => {
         
         todoList.find()
         .then(todoLists => {
-            res.json({
-                error: null,
-                todoLists: todoLists
-            })
+            res.json(todoLists)
         })
         .catch(error => {
             res.status(500).json({
@@ -36,16 +33,16 @@ const setupExpress = () => {
 
         let inputText = req.body.inputText
 
-        todoList.create({
+        let newTodo = {
             text: inputText,
             done: false,
             createdAt: new Date(),
             updatedAt: new Date()
-        })
+        }
+
+        todoList.create(newTodo)
         .then(() => {
-            res.json({
-                error: null
-            })
+            res.json(newTodo)
         })
         .catch(error => {
             res.status(500).json({
