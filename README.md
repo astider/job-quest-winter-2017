@@ -7,6 +7,7 @@ I've done 2 out of 3 parts, Back-end and Front-end, because I still don't have k
 - ./node
 - ./graphql
 - ./react
+
 using **yarn start** in each directory to start the process.
 
 Back-end
