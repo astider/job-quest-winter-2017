@@ -12,7 +12,7 @@ use **yarn start** in each directory to start the process.
 
 Back-end
 ---
-I finished all APIs in the quest and setup MongoDB to test my code. The APIs server in running on localhost:8000 and MongoDB running on localhost:27017. All Todos and their states are saved in Database.
+I finished all APIs in the quest and setup MongoDB to test my code. The APIs server is running on localhost:8000 and MongoDB running on localhost:27017. All Todos and their states are saved in Database.
 
 I also explore GraphQL and try to use it. Running on localhost:5000/graphql. Looks like it works, but I still have a lot to learn.
 
